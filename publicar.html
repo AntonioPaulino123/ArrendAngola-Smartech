@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar Imóvel - ArrendAngola</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <h1>Arrend<span>Angola</span></h1>
+        </div>
+        <div class="nav-menu">
+            <a href="index.html">Início</a>
+            <a href="buscar.html">Buscar Imóveis</a>
+            <a href="publicar.html">Publicar Imóvel</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="login.html" class="btn-cadastro">Entrar</a>
+        </div>
+    </div>
+</header>
+
+<div class="form-container">
+    <h2 style="color: #1e3c72; margin-bottom: 1rem;"> Publicar Imóvel</h2>
+    <p style="margin-bottom: 2rem;">Preencha os dados abaixo para anunciar seu imóvel</p>
+
+    <form id="formPublicar">
+        <div class="form-group">
+            <label>Tipo de negócio *</label>
+            <select required>
+                <option value="">Selecione</option>
+                <option>Arrendamento</option>
+                <option>Venda</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Preço (Kz) *</label>
+            <input type="number" placeholder="Ex: 450000" required>
+        </div>
+
+        <div class="form-group">
+            <label>Província *</label>
+            <select required>
+                <option value="">Selecione a província</option>
+                <option>Bengo</option>
+                <option>Benguela</option>
+                <option>Bié</option>
+                <option>Cabinda</option>
+                <option>Cuando</option>
+                <option>Cuanza Norte</option>
+                <option>Cuanza Sul</option>
+                <option>Cubango</option>
+                <option>Cunene</option>
+                <option>Huambo</option>
+                <option>Huíla</option>
+                <option>Luanda</option>
+                <option>Lunda Norte</option>
+                <option>Lunda Sul</option>
+                <option>Malanje</option>
+                <option>Moxico</option>
+                <option>Moxico Leste</option>
+                <option>Namibe</option>
+                <option>Uíge</option>
+                <option>Zaire</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Município/Bairro *</label>
+            <input type="text" placeholder="Ex: Ingombota, Talatona..." required>
+        </div>
+
+        <div class="form-group">
+            <label>Número de telefone *</label>
+            <input type="tel" placeholder="Ex: 923 456 789" required>
+        </div>
+
+        <div class="form-group">
+            <label>Descrição do imóvel *</label>
+            <textarea rows="4" placeholder="Descreva detalhes do imóvel (quartos, banheiros, área, etc.)" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Foto 1 (máximo 3 fotos) *</label>
+            <input type="file" accept="image/*" required>
+        </div>
+
+        <div class="form-group">
+            <label>Foto 2 *</label>
+            <input type="file" accept="image/*" required>
+        </div>
+
+        <div class="form-group">
+            <label>Foto 3 *</label>
+            <input type="file" accept="image/*" required>
+        </div>
+
+        <div class="form-group">
+            <label>Vídeo (máximo 3 minutos)</label>
+            <input type="file" accept="video/*">
+            <small style="color: #718096;">Formatos: MP4, AVI, MOV (máx. 100MB)</small>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%;">Publicar Imóvel</button>
+    </form>
+</div>
+
+<footer>
+    <p>© 2026 ArrendAngola - Plataforma de imóveis em Angola. Uma iniciativa SMARTECH - António Lando Paulino.</p>
+</footer>
+
+</body>
+</html>

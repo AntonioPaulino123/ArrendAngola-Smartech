@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - ArrendAngola</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <h1>Arrend<span>Angola</span></h1>
+        </div>
+        <div class="nav-menu">
+            <a href="index.html">Início</a>
+            <a href="buscar.html">Buscar Imóveis</a>
+            <a href="publicar.html">Publicar Imóvel</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="login.html" class="btn-cadastro">Sair</a>
+        </div>
+    </div>
+</header>
+
+<div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
+    
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+        <!-- Sidebar do perfil -->
+        <aside style="flex: 1; min-width: 250px;">
+            <div style="background: white; border-radius: 20px; padding: 1.5rem; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <div style="background: #2b6cb0; width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">👤</div>
+                <h3 style="color: #1e3c72;">João Silva</h3>
+                <p> joao.silva@email.com</p>
+                <p> 923 456 789</p>
+                <div class="avaliacoes" style="background: #f0f4ff;">
+                    <span class="estrelas">★★★★☆</span> 4.5 (12 avaliações)
+                </div>
+                <button class="btn-outline" style="margin-top: 1rem;">Editar Perfil</button>
+            </div>
+        </aside>
+
+        <!-- Conteúdo principal -->
+        <main style="flex: 3;">
+            <div style="background: white; border-radius: 20px; padding: 1.5rem; margin-bottom: 2rem;">
+                <h2 style="color: #1e3c72;">Estatísticas</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <div style="background: #f0f4ff; padding: 1rem; border-radius: 15px; text-align: center;">
+                        <h3 style="color: #2b6cb0;">3</h3>
+                        <p>Imóveis Publicados</p>
+                    </div>
+                    <div style="background: #f0f4ff; padding: 1rem; border-radius: 15px; text-align: center;">
+                        <h3 style="color: #2b6cb0;">45</h3>
+                        <p>Visualizações</p>
+                    </div>
+                    <div style="background: #f0f4ff; padding: 1rem; border-radius: 15px; text-align: center;">
+                        <h3 style="color: #2b6cb0;">8</h3>
+                        <p>Mensagens</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; border-radius: 20px; padding: 1.5rem;">
+                <h2 style="color: #1e3c72;">Meus Imóveis</h2>
+                
+                <div style="margin-top: 1rem;">
+                    <div style="border-bottom: 1px solid #cbd5e1; padding: 1rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                        <div>
+                            <strong>Apartamento T3 em Luanda</strong>
+                            <div>450.000 Kz/mês |  Ingombota</div>
+                            <span class="tipo" style="background: #28a745; color: white;">Ativo</span>
+                        </div>
+                        <div>
+                            <button class="btn-outline" style="padding: 0.3rem 1rem;">Editar</button>
+                            <button class="btn-danger" style="padding: 0.3rem 1rem;">Excluir</button>
+                        </div>
+                    </div>
+
+                    <div style="border-bottom: 1px solid #cbd5e1; padding: 1rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                        <div>
+                            <strong>Casa T4 Benguela</strong>
+                            <div>120.000.000 Kz |  Praia Morena</div>
+                            <span class="tipo" style="background: #dc3545; color: white;">Pendente</span>
+                        </div>
+                        <div>
+                            <button class="btn-outline" style="padding: 0.3rem 1rem;">Editar</button>
+                            <button class="btn-danger" style="padding: 0.3rem 1rem;">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" style="margin-top: 1.5rem; width: 100%;">+ Publicar Novo Imóvel</button>
+            </div>
+        </main>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 ArrendAngola - Plataforma de imóveis em Angola.  Uma iniciativa SMARTECH - António Lando Paulino.</p>
+</footer>
+
+</body>
+</html>

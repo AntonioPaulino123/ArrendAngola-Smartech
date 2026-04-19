@@ -1,0 +1,317 @@
+/* ============================================
+   ARRENDANGOLA - ESTILOS PRINCIPAIS
+   Profissional | Moderno | Azul Gradiente Claro
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+    color: #1a1a2e;
+    line-height: 1.6;
+}
+
+/* ===== CABEÇALHO ===== */
+header {
+    background: linear-gradient(90deg, #ffffff 0%, #f0f4ff 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    color: #1e3c72;
+}
+
+.logo span {
+    color: #2b6cb0;
+    font-weight: bold;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #1a1a2e;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #2b6cb0;
+}
+
+.btn-cadastro {
+    background: linear-gradient(135deg, #2b6cb0, #1e3c72);
+    color: white !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    transition: transform 0.2s;
+}
+
+.btn-cadastro:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #1e3c72, #2b6cb0);
+}
+
+/* ===== BOTÕES ===== */
+.btn-primary {
+    background: linear-gradient(135deg, #2b6cb0, #1e3c72);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(43, 108, 176, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #2b6cb0;
+    color: #2b6cb0;
+    padding: 0.7rem 1.6rem;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-outline:hover {
+    background: #2b6cb0;
+    color: white;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+/* ===== CARDS DE IMÓVEIS ===== */
+.imoveis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.imovel-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.imovel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.imagem-card {
+    height: 220px;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+.conteudo-card {
+    padding: 1.5rem;
+}
+
+.preco {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1e3c72;
+    margin: 0.5rem 0;
+}
+
+.preco span {
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.localizacao {
+    color: #2b6cb0;
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
+
+.tipo {
+    display: inline-block;
+    background: #e2e8f0;
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* ===== FORMULÁRIOS ===== */
+.form-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #1e3c72;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2b6cb0;
+    box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.1);
+}
+
+/* ===== FILTROS ===== */
+.filtros-lateral {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin: 1rem;
+    height: fit-content;
+}
+
+/* ===== BANNER DE BUSCA ===== */
+.banner-busca {
+    background: linear-gradient(135deg, #1e3c72, #2b6cb0);
+    padding: 3rem 2rem;
+    text-align: center;
+    color: white;
+}
+
+.banner-busca h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.busca-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.busca-form input {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+}
+
+/* ===== AVALIAÇÕES ===== */
+.avaliacoes {
+    background: #f8fafc;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-top: 1rem;
+}
+
+.estrelas {
+    color: #fbbf24;
+    font-size: 1.2rem;
+}
+
+/* ===== RODAPÉ ===== */
+footer {
+    background: #1a1a2e;
+    color: #cbd5e1;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-menu {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .imoveis-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .banner-busca h1 {
+        font-size: 1.8rem;
+    }
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Imóvel - ArrendAngola</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <h1>Arrend<span>Angola</span></h1>
+        </div>
+        <div class="nav-menu">
+            <a href="index.html">Início</a>
+            <a href="buscar.html">Buscar Imóveis</a>
+            <a href="publicar.html">Publicar Imóvel</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="login.html" class="btn-cadastro">Entrar</a>
+        </div>
+    </div>
+</header>
+
+<div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
+    
+    <!-- Galeria de fotos -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+        <div style="background: #e2e8f0; height: 250px; border-radius: 15px; display: flex; align-items: center; justify-content: center;">📸 Foto 1</div>
+        <div style="background: #e2e8f0; height: 250px; border-radius: 15px; display: flex; align-items: center; justify-content: center;">📸 Foto 2</div>
+        <div style="background: #e2e8f0; height: 250px; border-radius: 15px; display: flex; align-items: center; justify-content: center;">📸 Foto 3</div>
+    </div>
+
+    <!-- Vídeo -->
+    <div style="background: #1a1a2e; border-radius: 20px; padding: 1rem; margin-bottom: 2rem; text-align: center;">
+        <p style="color: white; margin-bottom: 0.5rem;"> Vídeo do imóvel (máx. 3 min)</p>
+        <div style="background: #2d3748; height: 300px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white;">Player de vídeo</div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+        <!-- Informações principais -->
+        <div style="flex: 2;">
+            <h1 style="color: #1e3c72;">Apartamento T3 com vista para o mar</h1>
+            <div class="localizacao" style="font-size: 1.2rem;">Luanda, Ingombota - Próximo à baía</div>
+            <div class="preco" style="font-size: 2.5rem;">450.000 Kz <span style="font-size: 1rem;">/mês</span></div>
+            
+            <div style="background: #f0f4ff; padding: 1rem; border-radius: 15px; margin: 1rem 0;">
+                <strong>Contato do proprietário:</strong> <span style="color: #2b6cb0;">923 456 789</span>
+                <button class="btn-success" style="margin-left: 1rem; padding: 0.3rem 1rem;">WhatsApp</button>
+            </div>
+
+            <h3 style="color: #1e3c72; margin-top: 1.5rem;">Descrição</h3>
+            <p>Apartamento espaçoso com 3 quartos sendo 1 suíte, sala ampla, cozinha equipada, 2 banheiros sociais, varanda gourmet com vista para o mar. Condomínio com piscina, academia e 24h de segurança.</p>
+
+            <h3 style="color: #1e3c72; margin-top: 1.5rem;">⭐ Avaliações do Proprietário</h3>
+            <div class="avaliacoes">
+                <div style="border-bottom: 1px solid #cbd5e1; padding: 0.8rem 0;">
+                    <span class="estrelas">★★★★★</span>
+                    <strong>João Silva</strong> - "Muito atencioso, responde rápido"
+                </div>
+                <div style="padding: 0.8rem 0;">
+                    <span class="estrelas">★★★★☆</span>
+                    <strong>Maria Santos</strong> - "Imóvel exatamente como nas fotos"
+                </div>
+            </div>
+        </div>
+
+        <!-- Mapa e ações -->
+        <div style="flex: 1;">
+            <div style="background: white; padding: 1.5rem; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <h3 style="color: #1e3c72;">Localização</h3>
+                <div style="background: #e2e8f0; height: 200px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin: 1rem 0;">Mapa interativo</div>
+                <button class="btn-primary" style="width: 100%;">Solicitar Visita</button>
+                <button class="btn-outline" style="width: 100%; margin-top: 0.5rem;">Salvar nos Favoritos</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 ArrendAngola - Plataforma de imóveis em Angola.  Uma iniciativa SMARTECH - António Lando Paulino.</p>
+</footer>
+
+</body>
+</html>
