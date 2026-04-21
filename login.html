@@ -26,26 +26,21 @@
     <h2 style="color: #1e3c72; text-align: center;">Entrar na Conta</h2>
     <p style="text-align: center; margin-bottom: 2rem;">Acesse sua conta ArrendAngola</p>
 
-    <form>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="seu@email.com" required>
-        </div>
+  <form id="formLogin">
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="seu@email.com" required>
+    </div>
 
-        <div class="form-group">
-            <label>Senha</label>
-            <input type="password" placeholder="••••••••" required>
-        </div>
+    <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="senha" placeholder="••••••••" required>
+    </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-            <label style="display: flex; align-items: center; gap: 0.5rem;">
-                <input type="checkbox"> Lembrar-me
-            </label>
-            <a href="#" style="color: #2b6cb0;">Esqueceu a senha?</a>
-        </div>
+    <button type="submit" class="btn-primary" style="width: 100%;">Entrar</button>
+</form>
 
-        <button type="submit" class="btn-primary" style="width: 100%;">Entrar</button>
-    </form>
+<div id="mensagem" style="margin-top: 1rem; text-align: center;"></div>
 
     <div style="text-align: center; margin-top: 2rem;">
         <p>Não tem conta? <a href="cadastro.html" style="color: #2b6cb0; font-weight: bold;">Criar conta gratuita</a></p>
@@ -55,6 +50,23 @@
 <footer>
     <p>© 2026 ArrendAngola - Plataforma de imóveis em Angola.  Uma iniciativa SMARTECH - António Lando Paulino.</p>
 </footer>
+<script>
+    document.getElementById('formLogin').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const resultado = await loginUsuario(
+            document.getElementById('email').value,
+            document.getElementById('senha').value
+        );
+        
+        if (resultado.sucesso) {
+            document.getElementById('mensagem').innerHTML = '<span style="color: green;">✅ Login realizado! Redirecionando...</span>';
+            setTimeout(() => { window.location.href = 'perfil.html'; }, 1500);
+        } else {
+            document.getElementById('mensagem').innerHTML = '<span style="color: red;">❌ ' + resultado.erro + '</span>';
+        }
+    });
+</script>
 
 </body>
 </html>
