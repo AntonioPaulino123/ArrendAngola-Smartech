@@ -18,103 +18,124 @@
             <a href="buscar.html">Buscar Imóveis</a>
             <a href="publicar.html">Publicar Imóvel</a>
             <a href="sobre.html">Sobre</a>
+            <a href="login.html" class="btn-cadastro">Entrar</a>
         </div>
     </div>
 </header>
 
 <div class="form-container" style="max-width: 600px;">
     <h2 style="color: #1e3c72; text-align: center;">Criar Conta</h2>
-    <p style="text-align: center; margin-bottom: 2rem;">Cadastre-se grátis e comece a usar o ArrendAngola</p>
+    <p style="text-align: center; margin-bottom: 2rem;">Cadastre-se gratuitamente</p>
 
-<form id="formCadastro">
-    <div class="form-group">
-        <label>Nome completo *</label>
-        <input type="text" id="nome" placeholder="Seu nome" required>
-    </div>
+    <form id="formCadastro">
+        <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" id="nome" placeholder="Ex: Antonio Silva" required>
+        </div>
 
-    <div class="form-group">
-        <label>Email *</label>
-        <input type="email" id="email" placeholder="seu@email.com" required>
-    </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="exemplo@email.com" required>
+        </div>
 
-    <div class="form-group">
-        <label>Número de telefone *</label>
-        <input type="tel" id="telefone" placeholder="923 456 789" required>
-    </div>
+        <div class="form-group">
+            <label>Telefone</label>
+            <input type="tel" id="telefone" placeholder="923 456 789" required>
+        </div>
 
-    <div class="form-group">
-        <label>Província</label>
-        <select id="provincia">
-            <option>Selecione sua província</option>
-            <option>Bengo</option><option>Benguela</option><option>Bié</option>
-            <option>Cabinda</option><option>Cuando Cubango</option><option>Cuanza Norte</option>
-            <option>Cuanza Sul</option><option>Cunene</option><option>Huambo</option>
-            <option>Huíla</option><option>Luanda</option><option>Lunda Norte</option>
-            <option>Lunda Sul</option><option>Malanje</option><option>Moxico</option>
-            <option>Namibe</option><option>Uíge</option><option>Zaire</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label>Província</label>
+            <select id="provincia" required>
+                <option value="">Selecione</option>
+                <option>Bengo</option><option>Benguela</option><option>Bié</option>
+                <option>Cabinda</option><option>Cuando Cubango</option><option>Cuanza Norte</option>
+                <option>Cuanza Sul</option><option>Cunene</option><option>Huambo</option>
+                <option>Huíla</option><option>Luanda</option><option>Lunda Norte</option>
+                <option>Lunda Sul</option><option>Malanje</option><option>Moxico</option>
+                <option>Namibe</option><option>Uíge</option><option>Zaire</option>
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label>Senha *</label>
-        <input type="password" id="senha" placeholder="Mínimo 6 caracteres" required>
-    </div>
+        <div class="form-group">
+            <label>Senha</label>
+            <input type="password" id="senha" placeholder="Mínimo 6 caracteres" required>
+        </div>
 
-    <div class="form-group">
-        <label>Confirmar senha *</label>
-        <input type="password" id="confirmarSenha" placeholder="Digite a senha novamente" required>
-    </div>
+        <div class="form-group">
+            <label>Confirmar senha</label>
+            <input type="password" id="confirmarSenha" placeholder="Digite a senha novamente" required>
+        </div>
 
-    <div class="form-group">
-        <label style="display: flex; align-items: center; gap: 0.5rem;">
-            <input type="checkbox" id="termos" required> Aceito os <a href="#">Termos de Uso</a>
-        </label>
-    </div>
+        <button type="submit" class="btn-primary" style="width: 100%;">Criar Conta</button>
+    </form>
 
-    <button type="submit" class="btn-primary" style="width: 100%;">Criar Conta</button>
-</form>
-
-<div id="mensagem" style="margin-top: 1rem; text-align: center;"></div>
+    <div id="mensagem" style="margin-top: 1rem; text-align: center;"></div>
 
     <div style="text-align: center; margin-top: 2rem;">
-        <p>Já tem conta? <a href="login.html" style="color: #2b6cb0; font-weight: bold;">Fazer login</a></p>
+        <p>Já tem conta? <a href="login.html" style="color: #2b6cb0;">Fazer login</a></p>
     </div>
 </div>
 
 <footer>
     <p>© 2026 ArrendAngola - Plataforma de imóveis em Angola</p>
 </footer>
-    <script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script>
     document.getElementById('formCadastro').addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const senha = document.getElementById('senha').value;
         const confirmar = document.getElementById('confirmarSenha').value;
+        const mensagemDiv = document.getElementById('mensagem');
         
         if (senha !== confirmar) {
-            document.getElementById('mensagem').innerHTML = '<span style="color: red;"> As senhas não coincidem</span>';
+            mensagemDiv.innerHTML = '<span style="color: #dc3545;">As senhas não coincidem</span>';
             return;
         }
         
-        const resultado = await cadastrarUsuario(
-            document.getElementById('nome').value,
-            document.getElementById('email').value,
-            document.getElementById('telefone').value,
-            document.getElementById('provincia').value,
-            senha
-        );
+        if (senha.length < 6) {
+            mensagemDiv.innerHTML = '<span style="color: #dc3545;">A senha deve ter pelo menos 6 caracteres</span>';
+            return;
+        }
         
-        if (resultado.sucesso) {
-            document.getElementById('mensagem').innerHTML = '<span style="color: green;"> Conta criada! Redirecionando...</span>';
-            setTimeout(() => { window.location.href = 'login.html'; }, 2000);
-        } else {
-            document.getElementById('mensagem').innerHTML = '<span style="color: red;"> ' + resultado.erro + '</span>';
+        mensagemDiv.innerHTML = '<span style="color: #2b6cb0;">Cadastrando...</span>';
+        
+        const usuario = {
+            nome: document.getElementById('nome').value,
+            email: document.getElementById('email').value,
+            telefone: document.getElementById('telefone').value,
+            provincia: document.getElementById('provincia').value,
+            senha: senha
+        };
+        
+        try {
+            const { data, error } = await supabaseClient
+                .from('usuarios')
+                .insert([usuario])
+                .select();
+            
+            if (error) {
+                if (error.code === '23505') {
+                    mensagemDiv.innerHTML = '<span style="color: #dc3545;">Este email já está cadastrado</span>';
+                } else {
+                    mensagemDiv.innerHTML = '<span style="color: #dc3545;">Erro ao cadastrar: ' + error.message + '</span>';
+                }
+                return;
+            }
+            
+            if (data && data.length > 0) {
+                mensagemDiv.innerHTML = '<span style="color: #28a745;">Cadastro realizado com sucesso! Redirecionando...</span>';
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
+        } catch (erro) {
+            mensagemDiv.innerHTML = '<span style="color: #dc3545;">Erro de conexão. Tente novamente.</span>';
+            console.error(erro);
         }
     });
 </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
-
 </body>
 </html>
