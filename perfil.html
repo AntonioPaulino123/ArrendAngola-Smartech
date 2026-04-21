@@ -4,7 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil - ArrendAngola</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos adicionais para o dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        .stat-label {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        .profile-header {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e3c72, #2b6cb0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .info-row {
+            display: flex;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .info-label {
+            width: 100px;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+        .info-value {
+            color: #334155;
+            flex: 1;
+        }
+        .imovel-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1.25rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .imovel-item:last-child {
+            border-bottom: none;
+        }
+        .imovel-titulo {
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 0.25rem;
+        }
+        .imovel-preco {
+            color: #2b6cb0;
+            font-weight: 600;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-ativo {
+            background: #28a745;
+            color: white;
+        }
+        .status-inativo {
+            background: #dc3545;
+            color: white;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+        }
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .rating-stars {
+            color: #fbbf24;
+            letter-spacing: 2px;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,86 +130,251 @@
             <a href="buscar.html">Buscar Imóveis</a>
             <a href="publicar.html">Publicar Imóvel</a>
             <a href="sobre.html">Sobre</a>
-            <a href="login.html" class="btn-cadastro">Sair</a>
+            <a href="#" id="sair-link" class="btn-cadastro">Sair</a>
         </div>
     </div>
 </header>
 
-<div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
+<main style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
     
-    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
-        <!-- Sidebar do perfil -->
-        <aside style="flex: 1; min-width: 250px;">
-            <div style="background: white; border-radius: 20px; padding: 1.5rem; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                <div style="background: #2b6cb0; width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">👤</div>
-                <h3 style="color: #1e3c72;">João Silva</h3>
-                <p> joao.silva@email.com</p>
-                <p> 923 456 789</p>
-                <div class="avaliacoes" style="background: #f0f4ff;">
-                    <span class="estrelas">★★★★☆</span> 4.5 (12 avaliações)
+    <!-- Cabeçalho do Perfil -->
+    <div class="profile-header">
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
+            <div class="profile-avatar" id="perfil-avatar">U</div>
+            <div style="flex: 1;">
+                <h2 id="perfil-nome" style="color: #1e3c72; margin-bottom: 0.5rem;">Carregando...</h2>
+                <div class="info-row">
+                    <div class="info-label">Email</div>
+                    <div class="info-value" id="perfil-email">---</div>
                 </div>
-                <button class="btn-outline" style="margin-top: 1rem;">Editar Perfil</button>
-            </div>
-        </aside>
-
-        <!-- Conteúdo principal -->
-        <main style="flex: 3;">
-            <div style="background: white; border-radius: 20px; padding: 1.5rem; margin-bottom: 2rem;">
-                <h2 style="color: #1e3c72;">Estatísticas</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                    <div style="background: #f0f4ff; padding: 1rem; border-radius: 15px; text-align: center;">
-                        <h3 style="color: #2b6cb0;">3</h3>
-                        <p>Imóveis Publicados</p>
-                    </div>
-                    <div style="background: #f0f4ff; padding: 1rem; border-radius: 15px; text-align: center;">
-                        <h3 style="color: #2b6cb0;">45</h3>
-                        <p>Visualizações</p>
-                    </div>
-                    <div style="background: #f0f4ff; padding: 1rem; border-radius: 15px; text-align: center;">
-                        <h3 style="color: #2b6cb0;">8</h3>
-                        <p>Mensagens</p>
-                    </div>
+                <div class="info-row">
+                    <div class="info-label">Telefone</div>
+                    <div class="info-value" id="perfil-telefone">---</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Província</div>
+                    <div class="info-value" id="perfil-provincia">---</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Avaliação</div>
+                    <div class="info-value" id="perfil-avaliacao">---</div>
                 </div>
             </div>
-
-            <div style="background: white; border-radius: 20px; padding: 1.5rem;">
-                <h2 style="color: #1e3c72;">Meus Imóveis</h2>
-                
-                <div style="margin-top: 1rem;">
-                    <div style="border-bottom: 1px solid #cbd5e1; padding: 1rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-                        <div>
-                            <strong>Apartamento T3 em Luanda</strong>
-                            <div>450.000 Kz/mês |  Ingombota</div>
-                            <span class="tipo" style="background: #28a745; color: white;">Ativo</span>
-                        </div>
-                        <div>
-                            <button class="btn-outline" style="padding: 0.3rem 1rem;">Editar</button>
-                            <button class="btn-danger" style="padding: 0.3rem 1rem;">Excluir</button>
-                        </div>
-                    </div>
-
-                    <div style="border-bottom: 1px solid #cbd5e1; padding: 1rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-                        <div>
-                            <strong>Casa T4 Benguela</strong>
-                            <div>120.000.000 Kz |  Praia Morena</div>
-                            <span class="tipo" style="background: #dc3545; color: white;">Pendente</span>
-                        </div>
-                        <div>
-                            <button class="btn-outline" style="padding: 0.3rem 1rem;">Editar</button>
-                            <button class="btn-danger" style="padding: 0.3rem 1rem;">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn-primary" style="margin-top: 1.5rem; width: 100%;">+ Publicar Novo Imóvel</button>
-            </div>
-        </main>
+        </div>
     </div>
-</div>
+
+    <!-- Estatísticas -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number" id="stats-imoveis">0</div>
+            <div class="stat-label">Imóveis Publicados</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="stats-visualizacoes">0</div>
+            <div class="stat-label">Visualizações Totais</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="stats-avaliacoes">0</div>
+            <div class="stat-label">Avaliações Recebidas</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="stats-favoritos">0</div>
+            <div class="stat-label">Favoritos Recebidos</div>
+        </div>
+    </div>
+
+    <!-- Meus Imóveis -->
+    <div style="background: white; border-radius: 20px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+        <h3 style="color: #1e3c72; margin-bottom: 1.5rem;">Meus Imóveis</h3>
+        <div id="meus-imoveis-container">
+            <div class="empty-state">Carregando imóveis...</div>
+        </div>
+        <div style="margin-top: 1.5rem; text-align: center;">
+            <a href="publicar.html" class="btn-primary">+ Publicar Novo Imóvel</a>
+        </div>
+    </div>
+</main>
 
 <footer>
-    <p>© 2026 ArrendAngola - Plataforma de imóveis em Angola.  Uma iniciativa SMARTECH - António Lando Paulino.</p>
+    <p>© 2026 ArrendAngola - Plataforma de imóveis em Angola</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script>
+    // ============================================
+    // FUNÇÕES DO PERFIL
+    // ============================================
+
+    // Formatar número em Kz
+    function formatarPreco(valor) {
+        return Number(valor).toLocaleString('pt-AO') + ' Kz';
+    }
+
+    // Renderizar estrelas
+    function renderizarEstrelas(nota) {
+        const cheias = Math.round(nota || 0);
+        const vazias = 5 - cheias;
+        return '<span class="rating-stars">' + '★'.repeat(cheias) + '☆'.repeat(vazias) + '</span>';
+    }
+
+    // Carregar dados do perfil
+    async function carregarPerfil() {
+        const usuario = getUsuarioLogado();
+        
+        if (!usuario) {
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        // Dados básicos
+        document.getElementById('perfil-nome').innerText = usuario.nome;
+        document.getElementById('perfil-email').innerHTML = usuario.email;
+        document.getElementById('perfil-telefone').innerHTML = usuario.telefone || 'Não informado';
+        document.getElementById('perfil-provincia').innerHTML = usuario.provincia || 'Não informada';
+        
+        // Avatar (iniciais do nome)
+        const iniciais = usuario.nome.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+        document.getElementById('perfil-avatar').innerText = iniciais;
+        
+        // Avaliação
+        const media = usuario.avaliacao_media || 0;
+        document.getElementById('perfil-avaliacao').innerHTML = renderizarEstrelas(media) + ' ' + media.toFixed(1);
+        
+        // Carregar estatísticas e imóveis
+        await carregarEstatisticas(usuario.id);
+        await carregarMeusImoveis(usuario.id);
+    }
+
+    // Carregar estatísticas do usuário
+    async function carregarEstatisticas(usuarioId) {
+        try {
+            // Imóveis do usuário
+            const { data: imoveis, error: errImoveis } = await supabaseClient
+                .from('imoveis')
+                .select('id, views')
+                .eq('usuario_id', usuarioId);
+            
+            if (!errImoveis && imoveis) {
+                document.getElementById('stats-imoveis').innerText = imoveis.length;
+                
+                const totalViews = imoveis.reduce((sum, item) => sum + (item.views || 0), 0);
+                document.getElementById('stats-visualizacoes').innerText = totalViews;
+            }
+            
+            // Avaliações recebidas
+            const { data: avaliacoes, error: errAval } = await supabaseClient
+                .from('avaliacoes')
+                .select('id')
+                .eq('avaliado_id', usuarioId);
+            
+            if (!errAval && avaliacoes) {
+                document.getElementById('stats-avaliacoes').innerText = avaliacoes.length;
+            }
+            
+            // Favoritos nos imóveis do usuário
+            if (imoveis && imoveis.length > 0) {
+                const imoveisIds = imoveis.map(i => i.id);
+                const { data: favoritos, error: errFav } = await supabaseClient
+                    .from('favoritos')
+                    .select('id')
+                    .in('imovel_id', imoveisIds);
+                
+                if (!errFav && favoritos) {
+                    document.getElementById('stats-favoritos').innerText = favoritos.length;
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao carregar estatísticas:', error);
+        }
+    }
+
+    // Carregar lista de imóveis do usuário
+    async function carregarMeusImoveis(usuarioId) {
+        const container = document.getElementById('meus-imoveis-container');
+        
+        try {
+            const { data: imoveis, error } = await supabaseClient
+                .from('imoveis')
+                .select('*')
+                .eq('usuario_id', usuarioId)
+                .order('created_at', { ascending: false });
+            
+            if (error) throw error;
+            
+            if (!imoveis || imoveis.length === 0) {
+                container.innerHTML = '<div class="empty-state">Você ainda não publicou nenhum imóvel.</div>';
+                return;
+            }
+            
+            container.innerHTML = imoveis.map(imovel => `
+                <div class="imovel-item">
+                    <div>
+                        <div class="imovel-titulo">${imovel.bairro}, ${imovel.provincia}</div>
+                        <div class="imovel-preco">${formatarPreco(imovel.preco)} ${imovel.tipo_negocio === 'Arrendamento' ? '/ mês' : ''}</div>
+                        <div style="margin-top: 0.5rem;">
+                            <span class="status-badge ${imovel.status === 'ativo' ? 'status-ativo' : 'status-inativo'}">${imovel.status === 'ativo' ? 'Ativo' : 'Inativo'}</span>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn-outline" onclick="editarImovel('${imovel.id}')" style="padding: 0.4rem 1rem;">Editar</button>
+                        <button class="btn-danger" onclick="toggleStatusImovel('${imovel.id}', '${imovel.status}')" style="padding: 0.4rem 1rem;">${imovel.status === 'ativo' ? 'Desativar' : 'Ativar'}</button>
+                    </div>
+                </div>
+            `).join('');
+            
+        } catch (error) {
+            console.error('Erro ao carregar imóveis:', error);
+            container.innerHTML = '<div class="empty-state" style="color: red;">Erro ao carregar imóveis. Tente novamente.</div>';
+        }
+    }
+
+    // Editar imóvel
+    function editarImovel(id) {
+        window.location.href = `editar-imovel.html?id=${id}`;
+    }
+
+    // Ativar/Desativar imóvel
+    async function toggleStatusImovel(id, statusAtual) {
+        const novoStatus = statusAtual === 'ativo' ? 'inativo' : 'ativo';
+        const acao = novoStatus === 'ativo' ? 'ativar' : 'desativar';
+        
+        if (confirm(`Tem certeza que deseja ${acao} este imóvel?`)) {
+            const { error } = await supabaseClient
+                .from('imoveis')
+                .update({ status: novoStatus })
+                .eq('id', id);
+            
+            if (error) {
+                alert('Erro ao alterar status. Tente novamente.');
+            } else {
+                const usuario = getUsuarioLogado();
+                if (usuario) {
+                    await carregarMeusImoveis(usuario.id);
+                }
+            }
+        }
+    }
+
+    // Logout
+    function logout() {
+        sessionStorage.removeItem('usuario');
+        window.location.href = 'index.html';
+    }
+
+    // Inicializar página
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarPerfil();
+        
+        // Configurar botão de sair
+        const sairLink = document.getElementById('sair-link');
+        if (sairLink) {
+            sairLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                logout();
+            });
+        }
+    });
+</script>
 </body>
 </html>
