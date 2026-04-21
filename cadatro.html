@@ -92,7 +92,7 @@
         const confirmar = document.getElementById('confirmarSenha').value;
         
         if (senha !== confirmar) {
-            document.getElementById('mensagem').innerHTML = '<span style="color: red;">❌ As senhas não coincidem</span>';
+            document.getElementById('mensagem').innerHTML = '<span style="color: red;"> As senhas não coincidem</span>';
             return;
         }
         
@@ -112,6 +112,9 @@
         }
     });
 </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 
 </body>
 </html>
