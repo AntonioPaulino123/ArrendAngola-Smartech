@@ -5,262 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil - ArrendAngola</title>
     <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+
 <header>
     <div class="header-container">
-        <div class="logo">
-            <h1>Arrend<span>Angola</span></h1>
-        </div>
+        <div class="logo"><h1>Arrend<span>Angola</span></h1></div>
         <div class="nav-menu">
             <a href="index.html">Início</a>
             <a href="buscar.html">Buscar Imóveis</a>
             <a href="publicar.html">Publicar Imóvel</a>
             <a href="sobre.html">Sobre</a>
-            <a href="#" id="sair-link" class="btn-cadastro">Sair</a>
+            <a href="#" id="btn-sair" class="btn-cadastro">Sair</a>
         </div>
     </div>
 </header>
 
-<main style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
-    
-    <!-- Cabeçalho do Perfil -->
-    <div class="profile-header">
-        <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
-            <div class="profile-avatar" id="perfil-avatar">U</div>
-            <div style="flex: 1;">
-                <h2 id="perfil-nome" style="color: #1e3c72; margin-bottom: 0.5rem;">Carregando...</h2>
-                <div class="info-row">
-                    <div class="info-label">Email</div>
-                    <div class="info-value" id="perfil-email">---</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">Telefone</div>
-                    <div class="info-value" id="perfil-telefone">---</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">Província</div>
-                    <div class="info-value" id="perfil-provincia">---</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">Avaliação</div>
-                    <div class="info-value" id="perfil-avaliacao">---</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Estatísticas -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-number" id="stats-imoveis">0</div>
-            <div class="stat-label">Imóveis Publicados</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="stats-visualizacoes">0</div>
-            <div class="stat-label">Visualizações Totais</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="stats-avaliacoes">0</div>
-            <div class="stat-label">Avaliações Recebidas</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="stats-favoritos">0</div>
-            <div class="stat-label">Favoritos Recebidos</div>
-        </div>
-    </div>
-
-    <!-- Meus Imóveis -->
-    <div style="background: white; border-radius: 20px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-        <h3 style="color: #1e3c72; margin-bottom: 1.5rem;">Meus Imóveis</h3>
-        <div id="meus-imoveis-container">
-            <div class="empty-state">Carregando imóveis...</div>
-        </div>
-        <div style="margin-top: 1.5rem; text-align: center;">
-            <a href="publicar.html" class="btn-primary">+ Publicar Novo Imóvel</a>
+<main style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
+    <div style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <h2 style="color: #1e3c72;">Meu Perfil</h2>
+        <div id="perfil-info">
+            <p><strong>Nome:</strong> <span id="perfil-nome">Carregando...</span></p>
+            <p><strong>Email:</strong> <span id="perfil-email">Carregando...</span></p>
+            <p><strong>Telefone:</strong> <span id="perfil-telefone">Carregando...</span></p>
+            <p><strong>Província:</strong> <span id="perfil-provincia">Carregando...</span></p>
+            <p><strong>Avaliação:</strong> <span id="perfil-avaliacao">Carregando...</span></p>
         </div>
     </div>
 </main>
 
-<footer>
-    <p>© 2026 ArrendAngola - Plataforma de imóveis em Angola</p>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase.js"></script>
 <script>
-    // ============================================
-    // FUNÇÕES DO PERFIL
-    // ============================================
+    const SUPABASE_URL = 'https://zabaauxkksqeuazpfxwi.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_ES7PHsEz96dQ12gWJ8xihw_P8NeAfH5';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Formatar número em Kz
-    function formatarPreco(valor) {
-        return Number(valor).toLocaleString('pt-AO') + ' Kz';
-    }
-
-    // Renderizar estrelas
-    function renderizarEstrelas(nota) {
-        const cheias = Math.round(nota || 0);
-        const vazias = 5 - cheias;
-        return '<span class="rating-stars">' + '★'.repeat(cheias) + '☆'.repeat(vazias) + '</span>';
-    }
-
-    // Carregar dados do perfil
-    async function carregarPerfil() {
-        const usuario = getUsuarioLogado();
-        
-        if (!usuario) {
-            window.location.href = 'login.html';
-            return;
-        }
-        
-        // Dados básicos
+    // Buscar usuário logado
+    const usuarioSalvo = sessionStorage.getItem('usuario');
+    
+    if (!usuarioSalvo) {
+        window.location.href = 'login.html';
+    } else {
+        const usuario = JSON.parse(usuarioSalvo);
         document.getElementById('perfil-nome').innerText = usuario.nome;
-        document.getElementById('perfil-email').innerHTML = usuario.email;
-        document.getElementById('perfil-telefone').innerHTML = usuario.telefone || 'Não informado';
-        document.getElementById('perfil-provincia').innerHTML = usuario.provincia || 'Não informada';
-        
-        // Avatar (iniciais do nome)
-        const iniciais = usuario.nome.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
-        document.getElementById('perfil-avatar').innerText = iniciais;
-        
-        // Avaliação
-        const media = usuario.avaliacao_media || 0;
-        document.getElementById('perfil-avaliacao').innerHTML = renderizarEstrelas(media) + ' ' + media.toFixed(1);
-        
-        // Carregar estatísticas e imóveis
-        await carregarEstatisticas(usuario.id);
-        await carregarMeusImoveis(usuario.id);
+        document.getElementById('perfil-email').innerText = usuario.email;
+        document.getElementById('perfil-telefone').innerText = usuario.telefone || 'Não informado';
+        document.getElementById('perfil-provincia').innerText = usuario.provincia || 'Não informada';
+        document.getElementById('perfil-avaliacao').innerHTML =  + (usuario.avaliacao_media || 0).toFixed(1);
     }
 
-    // Carregar estatísticas do usuário
-    async function carregarEstatisticas(usuarioId) {
-        try {
-            // Imóveis do usuário
-            const { data: imoveis, error: errImoveis } = await supabaseClient
-                .from('imoveis')
-                .select('id, views')
-                .eq('usuario_id', usuarioId);
-            
-            if (!errImoveis && imoveis) {
-                document.getElementById('stats-imoveis').innerText = imoveis.length;
-                
-                const totalViews = imoveis.reduce((sum, item) => sum + (item.views || 0), 0);
-                document.getElementById('stats-visualizacoes').innerText = totalViews;
-            }
-            
-            // Avaliações recebidas
-            const { data: avaliacoes, error: errAval } = await supabaseClient
-                .from('avaliacoes')
-                .select('id')
-                .eq('avaliado_id', usuarioId);
-            
-            if (!errAval && avaliacoes) {
-                document.getElementById('stats-avaliacoes').innerText = avaliacoes.length;
-            }
-            
-            // Favoritos nos imóveis do usuário
-            if (imoveis && imoveis.length > 0) {
-                const imoveisIds = imoveis.map(i => i.id);
-                const { data: favoritos, error: errFav } = await supabaseClient
-                    .from('favoritos')
-                    .select('id')
-                    .in('imovel_id', imoveisIds);
-                
-                if (!errFav && favoritos) {
-                    document.getElementById('stats-favoritos').innerText = favoritos.length;
-                }
-            }
-        } catch (error) {
-            console.error('Erro ao carregar estatísticas:', error);
-        }
-    }
-
-    // Carregar lista de imóveis do usuário
-    async function carregarMeusImoveis(usuarioId) {
-        const container = document.getElementById('meus-imoveis-container');
-        
-        try {
-            const { data: imoveis, error } = await supabaseClient
-                .from('imoveis')
-                .select('*')
-                .eq('usuario_id', usuarioId)
-                .order('created_at', { ascending: false });
-            
-            if (error) throw error;
-            
-            if (!imoveis || imoveis.length === 0) {
-                container.innerHTML = '<div class="empty-state">Você ainda não publicou nenhum imóvel.</div>';
-                return;
-            }
-            
-            container.innerHTML = imoveis.map(imovel => `
-                <div class="imovel-item">
-                    <div>
-                        <div class="imovel-titulo">${imovel.bairro}, ${imovel.provincia}</div>
-                        <div class="imovel-preco">${formatarPreco(imovel.preco)} ${imovel.tipo_negocio === 'Arrendamento' ? '/ mês' : ''}</div>
-                        <div style="margin-top: 0.5rem;">
-                            <span class="status-badge ${imovel.status === 'ativo' ? 'status-ativo' : 'status-inativo'}">${imovel.status === 'ativo' ? 'Ativo' : 'Inativo'}</span>
-                        </div>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn-outline" onclick="editarImovel('${imovel.id}')" style="padding: 0.4rem 1rem;">Editar</button>
-                        <button class="btn-danger" onclick="toggleStatusImovel('${imovel.id}', '${imovel.status}')" style="padding: 0.4rem 1rem;">${imovel.status === 'ativo' ? 'Desativar' : 'Ativar'}</button>
-                    </div>
-                </div>
-            `).join('');
-            
-        } catch (error) {
-            console.error('Erro ao carregar imóveis:', error);
-            container.innerHTML = '<div class="empty-state" style="color: red;">Erro ao carregar imóveis. Tente novamente.</div>';
-        }
-    }
-
-    // Editar imóvel
-    function editarImovel(id) {
-        window.location.href = `editar-imovel.html?id=${id}`;
-    }
-
-    // Ativar/Desativar imóvel
-    async function toggleStatusImovel(id, statusAtual) {
-        const novoStatus = statusAtual === 'ativo' ? 'inativo' : 'ativo';
-        const acao = novoStatus === 'ativo' ? 'ativar' : 'desativar';
-        
-        if (confirm(`Tem certeza que deseja ${acao} este imóvel?`)) {
-            const { error } = await supabaseClient
-                .from('imoveis')
-                .update({ status: novoStatus })
-                .eq('id', id);
-            
-            if (error) {
-                alert('Erro ao alterar status. Tente novamente.');
-            } else {
-                const usuario = getUsuarioLogado();
-                if (usuario) {
-                    await carregarMeusImoveis(usuario.id);
-                }
-            }
-        }
-    }
-
-    // Logout
-    function logout() {
+    // Botão sair
+    document.getElementById('btn-sair').addEventListener('click', () => {
         sessionStorage.removeItem('usuario');
         window.location.href = 'index.html';
-    }
-
-    // Inicializar página
-    document.addEventListener('DOMContentLoaded', () => {
-        carregarPerfil();
-        
-        // Configurar botão de sair
-        const sairLink = document.getElementById('sair-link');
-        if (sairLink) {
-            sairLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                logout();
-            });
-        }
     });
 </script>
 </body>
