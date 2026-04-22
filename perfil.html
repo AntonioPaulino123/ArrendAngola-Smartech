@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ArrendAngola</title>
+    <title>Meu Perfil - ArrendAngola</title>
     <link rel="stylesheet" href="index.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -19,32 +19,72 @@
             <a href="buscar.html">Buscar Imóveis</a>
             <a href="publicar.html">Publicar Imóvel</a>
             <a href="sobre.html">Sobre</a>
+            <a href="#" id="logoutBtn" class="btn-cadastro">Sair</a>
         </div>
     </div>
 </header>
 
-<div class="form-container" style="max-width: 500px;">
-    <h2 style="color: #1e3c72; text-align: center;">Entrar na Conta</h2>
-    <p style="text-align: center; margin-bottom: 2rem;">Acesse sua conta ArrendAngola</p>
+<div class="dashboard-container">
+    <!-- Welcome Card -->
+    <div class="welcome-card">
+        <h1 id="welcomeName">Bem-vindo(a) de volta!</h1>
+        <p>Gerencie seus imóveis e acompanhe o desempenho da sua conta</p>
+    </div>
 
-    <form id="formLogin">
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" id="email" placeholder="seu@email.com" required>
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="stat-number" id="statImoveis">0</div>
+            <div class="stat-label">Imóveis Publicados</div>
         </div>
-
-        <div class="form-group">
-            <label>Senha</label>
-            <input type="password" id="senha" placeholder="Digite sua senha" required>
+        <div class="stat-box">
+            <div class="stat-number" id="statVisualizacoes">0</div>
+            <div class="stat-label">Visualizações Totais</div>
         </div>
+        <div class="stat-box">
+            <div class="stat-number" id="statAvaliacoes">0</div>
+            <div class="stat-label">Avaliações Recebidas</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="statFavoritos">0</div>
+            <div class="stat-label">Favoritos</div>
+        </div>
+    </div>
 
-        <button type="submit" class="btn-primary" style="width: 100%;">Entrar</button>
-    </form>
+    <!-- Profile Card -->
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="avatar" id="avatar">U</div>
+            <div class="profile-info">
+                <h3 id="profileName">Carregando...</h3>
+                <div class="rating-stars" id="profileStars">☆☆☆☆☆</div>
+            </div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Email</div>
+            <div class="info-value" id="profileEmail">---</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Telefone</div>
+            <div class="info-value" id="profileTelefone">---</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Província</div>
+            <div class="info-value" id="profileProvincia">---</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">Membro desde</div>
+            <div class="info-value" id="profileMembro">---</div>
+        </div>
+    </div>
 
-    <div id="mensagem" style="margin-top: 1rem; text-align: center;"></div>
-
-    <div style="text-align: center; margin-top: 2rem;">
-        <p>Não tem conta? <a href="cadastro.html" style="color: #2b6cb0; font-weight: bold;">Criar conta gratuita</a></p>
+    <!-- Meus Imóveis Section -->
+    <h3 class="section-title">Meus Imóveis</h3>
+    <div id="imoveisContainer">
+        <div class="empty-state">Carregando seus imóveis...</div>
+    </div>
+    <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="publicar.html" class="btn-primary">+ Publicar Novo Imóvel</a>
     </div>
 </div>
 
@@ -53,39 +93,145 @@
 </footer>
 
 <script>
+    // Configuração Supabase
     const SUPABASE_URL = 'https://zabaauxkksqeuazpfxwi.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_ES7PHsEz96dQ12gWJ8xihw_P8NeAfH5';
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    document.getElementById('formLogin').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const email = document.getElementById('email').value;
-        const senha = document.getElementById('senha').value;
-        const mensagemDiv = document.getElementById('mensagem');
-        
-        mensagemDiv.innerHTML = '<span style="color: #2b6cb0;">Verificando...</span>';
-        
-        const { data, error } = await supabase
-            .from('usuarios')
+    // Funções auxiliares
+    function formatarPreco(valor) {
+        return Number(valor).toLocaleString('pt-AO') + ' Kz';
+    }
+
+    function renderizarEstrelas(nota) {
+        const cheias = Math.round(nota || 0);
+        const vazias = 5 - cheias;
+        return '★'.repeat(cheias) + '☆'.repeat(vazias);
+    }
+
+    function formatarData(dataISO) {
+        if (!dataISO) return 'Recentemente';
+        const data = new Date(dataISO);
+        return data.toLocaleDateString('pt-PT');
+    }
+
+    // Buscar usuário logado
+    const usuarioLogado = sessionStorage.getItem('usuario');
+    if (!usuarioLogado) {
+        window.location.href = 'login.html';
+    }
+
+    const usuario = JSON.parse(usuarioLogado);
+    
+    // Preencher dados do perfil
+    document.getElementById('welcomeName').innerText = Olá, ${usuario.nome}!;
+    document.getElementById('profileName').innerText = usuario.nome;
+    document.getElementById('profileEmail').innerHTML = usuario.email;
+    document.getElementById('profileTelefone').innerHTML = usuario.telefone || 'Não informado';
+    document.getElementById('profileProvincia').innerHTML = usuario.provincia || 'Não informada';
+    document.getElementById('profileMembro').innerHTML = formatarData(usuario.created_at);
+    document.getElementById('profileStars').innerHTML = renderizarEstrelas(usuario.avaliacao_media || 0) +  ${(usuario.avaliacao_media || 0).toFixed(1)};
+    
+    // Avatar com iniciais
+    const iniciais = usuario.nome.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+    document.getElementById('avatar').innerText = iniciais;
+
+    // Carregar estatísticas e imóveis
+    async function carregarDados() {
+        // Buscar imóveis do usuário
+        const { data: imoveis, error } = await supabase
+            .from('imoveis')
             .select('*')
-            .eq('email', email)
-            .eq('senha', senha);
+            .eq('usuario_id', usuario.id)
+            .order('created_at', { ascending: false });
         
-        if (error || !data || data.length === 0) {
-            mensagemDiv.innerHTML = '<span style="color: #dc3545;">Email ou senha incorretos</span>';
+        if (error) {
+            console.error('Erro ao carregar imóveis:', error);
             return;
         }
         
-        const usuario = data[0];
-        sessionStorage.setItem('usuario', JSON.stringify(usuario));
-        mensagemDiv.innerHTML = '<span style="color: #28a745;">Login realizado! Redirecionando...</span>';
+        // Atualizar estatísticas
+        document.getElementById('statImoveis').innerText = imoveis?.length || 0;
+        const totalViews = imoveis?.reduce((sum, item) => sum + (item.views || 0), 0) || 0;
+        document.getElementById('statVisualizacoes').innerText = totalViews;
         
-        setTimeout(() => {
-            window.location.href = 'perfil.html';
-        }, 1500);
+        // Buscar avaliações recebidas
+        const { data: avaliacoes } = await supabase
+            .from('avaliacoes')
+            .select('id')
+            .eq('avaliado_id', usuario.id);
+        document.getElementById('statAvaliacoes').innerText = avaliacoes?.length || 0;
+        
+        // Buscar favoritos nos imóveis do usuário
+        if (imoveis && imoveis.length > 0) {
+            const imoveisIds = imoveis.map(i => i.id);
+            const { data: favoritos } = await supabase
+                .from('favoritos')
+                .select('id')
+                .in('imovel_id', imoveisIds);
+            document.getElementById('statFavoritos').innerText = favoritos?.length || 0;
+        }
+        
+        // Renderizar imóveis
+        const container = document.getElementById('imoveisContainer');
+        if (!imoveis || imoveis.length === 0) {
+            container.innerHTML = '<div class="empty-state">Você ainda não publicou nenhum imóvel. Comece agora!</div>';
+            return;
+        }
+        
+        container.innerHTML = imoveis.map(imovel => `
+            <div class="imovel-item">
+                <div style="flex: 1;">
+                    <div class="imovel-title">${imovel.bairro}, ${imovel.provincia}</div>
+                    <div class="imovel-price">${formatarPreco(imovel.preco)} ${imovel.tipo_negocio === 'Arrendamento' ? '/ mês' : ''}</div>
+                    <div style="margin-top: 0.5rem;">
+                        <span class="status-badge ${imovel.status === 'ativo' ? 'status-active' : 'status-inactive'}">
+                            ${imovel.status === 'ativo' ? 'Ativo' : 'Inativo'}
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-outline btn-small" onclick="editarImovel('${imovel.id}')">Editar</button>
+                    <button class="btn-danger btn-small" onclick="toggleStatus('${imovel.id}', '${imovel.status}')">
+                        ${imovel.status === 'ativo' ? 'Desativar' : 'Ativar'}
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Funções globais
+    window.editarImovel = function(id) {
+        window.location.href = editar-imovel.html?id=${id};
+    };
+    
+    window.toggleStatus = async function(id, statusAtual) {
+        const novoStatus = statusAtual === 'ativo' ? 'inativo' : 'ativo';
+        const acao = novoStatus === 'ativo' ? 'ativar' : 'desativar';
+        
+        if (confirm(Tem certeza que deseja ${acao} este imóvel?)) {
+            const { error } = await supabase
+                .from('imoveis')
+                .update({ status: novoStatus })
+                .eq('id', id);
+            
+            if (error) {
+                alert('Erro ao alterar status. Tente novamente.');
+            } else {
+                carregarDados();
+            }
+        }
+    };
+    
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        sessionStorage.removeItem('usuario');
+        window.location.href = 'index.html';
     });
+    
+    // Inicializar
+    carregarDados();
 </script>
-    <script src="supabase.js"></script>
 </body>
 </html>
